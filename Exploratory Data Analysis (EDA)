@@ -1,0 +1,53 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# already loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+# Display the first few rows of the DataFrame to understand its structure
+print("Sales Data:")
+print(sales_df.head())
+
+# Generate summary statistics
+print("\nSummary Statistics:")
+print(sales_df.describe())
+
+# Visualize sales trends over time
+# Assuming 'Date' column is in datetime format
+sales_df['Date'] = pd.to_datetime(sales_df['Date'])
+
+# Group sales data by month and sum the revenue
+monthly_sales = sales_df.resample('M', on='Date').sum()
+
+plt.figure(figsize=(10, 6))
+plt.plot(monthly_sales.index, monthly_sales['Revenue'], marker='o', linestyle='-')
+plt.title('Monthly Sales Trends')
+plt.xlabel('Date')
+plt.ylabel('Revenue ($)')
+plt.grid(True)
+plt.show()
+
+# Explore distribution of sales by product/category
+plt.figure(figsize=(10, 6))
+sales_df['Product'].value_counts().plot(kind='bar')
+plt.title('Distribution of Sales by Product')
+plt.xlabel('Product')
+plt.ylabel('Number of Sales')
+plt.xticks(rotation=45)
+plt.show()
+
+# Analyze customer demographics (if available)
+# Assuming there's a 'Gender' column in the customer data
+# customer_df = pd.read_csv("customer_data.csv")
+# print("\nCustomer Data:")
+# print(customer_df.head())
+
+# plt.figure(figsize=(6, 4))
+# customer_df['Gender'].value_counts().plot(kind='bar')
+# plt.title('Customer Gender Distribution')
+# plt.xlabel('Gender')
+# plt.ylabel('Number of Customers')
+# plt.show()
+
+# Additional EDA can be performed based on specific requirements
+
