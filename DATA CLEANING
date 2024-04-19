@@ -1,0 +1,36 @@
+import pandas as pd
+
+# you've already loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+# Display the first few rows of the DataFrame to understand its structure
+print("Original Sales Data:")
+print(sales_df.head())
+
+# Data Cleaning and Preparation
+# Handle missing data
+missing_values = sales_df.isnull().sum()
+print("\nMissing Values:")
+print(missing_values)
+
+#  missing values are in 'Quantity' and 'Price' columns, fill them with zeros
+sales_df['Quantity'].fillna(0, inplace=True)
+sales_df['Price'].fillna(0, inplace=True)
+
+# Standardize data formats
+#  'Date' column is in string format, convert it to datetime format
+sales_df['Date'] = pd.to_datetime(sales_df['Date'])
+
+# Remove duplicates
+sales_df.drop_duplicates(inplace=True)
+
+# Transform data as needed
+#  'Price' column is in string format with '$' sign, remove '$' and convert it to float
+sales_df['Price'] = sales_df['Price'].str.replace('$', '').astype(float)
+
+# Verify the cleaned data
+print("\nCleaned Sales Data:")
+print(sales_df.head())
+
+# Additional data cleaning steps can be added based on specific requirements
+
