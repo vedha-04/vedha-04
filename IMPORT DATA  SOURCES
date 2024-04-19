@@ -1,0 +1,23 @@
+Import data souce
+
+import pandas as pd
+
+# Define file paths for your CSV data
+sales_data_path = "path/to/sales_data.csv"
+customer_data_path = "path/to/customer_data.csv"
+product_data_path = "path/to/product_data.csv"
+
+# Load data into pandas DataFrames
+sales_df = pd.read_csv(sales_data_path)
+customer_df = pd.read_csv(customer_data_path)
+product_df = pd.read_csv(product_data_path)
+
+# Display the first few rows of each DataFrame to check the data
+print("Sales Data:")
+print(sales_df.head())
+
+print("\nCustomer Data:")
+print(customer_df.head())
+
+print("\nProduct Data:")
+print(product_df.head())
