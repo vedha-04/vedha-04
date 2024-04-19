@@ -1,0 +1,49 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+#  the 'Date' column is in datetime format
+sales_df['Date'] = pd.to_datetime(sales_df['Date'])
+
+# Resample sales data by month and sum the revenue
+monthly_sales = sales_df.resample('M', on='Date').sum()
+
+# Plotting sales trends over time
+plt.figure(figsize=(10, 6))
+plt.plot(monthly_sales.index, monthly_sales['Revenue'], marker='o', linestyle='-')
+plt.title('Monthly Sales Trends')
+plt.xlabel('Date')
+plt.ylabel('Revenue ($)')
+plt.grid(True)
+plt.show()
+
+# Seasonal decomposition
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+decomposition = seasonal_decompose(monthly_sales['Revenue'], model='additive')
+trend = decomposition.trend
+seasonal = decomposition.seasonal
+residual = decomposition.resid
+
+plt.figure(figsize=(10, 8))
+
+plt.subplot(411)
+plt.plot(monthly_sales['Revenue'], label='Original')
+plt.legend(loc='best')
+
+plt.subplot(412)
+plt.plot(trend, label='Trend')
+plt.legend(loc='best')
+
+plt.subplot(413)
+plt.plot(seasonal, label='Seasonal')
+plt.legend(loc='best')
+
+plt.subplot(414)
+plt.plot(residual, label='Residuals')
+plt.legend(loc='best')
+
+plt.tight_layout()
+plt.show()
