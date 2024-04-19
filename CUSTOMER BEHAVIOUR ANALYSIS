@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+# Analyze purchasing patterns
+purchase_patterns = sales_df.groupby('Customer')['Revenue'].sum().sort_values(ascending=False)
+
+# Plotting top-spending customers
+plt.figure(figsize=(10, 6))
+purchase_patterns.head(10).plot(kind='bar')
+plt.title('Top Spending Customers')
+plt.xlabel('Customer')
+plt.ylabel('Total Revenue ($)')
+plt.xticks(rotation=45)
+plt.show()
+
+# Segment customers based on their behavior
+# For simplicity, let's assume segmenting customers into high, medium, and low-value based on total revenue
+total_revenue = sales_df.groupby('Customer')['Revenue'].sum()
+total_revenue.describe()
+
+def segment_customer(revenue):
+    if revenue > 1000:
+        return 'High-Value'
+    elif revenue > 500:
+        return 'Medium-Value'
+    else:
+        return 'Low-Value'
+
+sales_df['Customer Segment'] = sales_df['Customer'].map(total_revenue.apply(segment_customer))
+
+# Count the number of customers in each segment
+customer_segment_counts = sales_df['Customer Segment'].value_counts()
+
+# Plotting customer segments
+plt.figure(figsize=(6, 4))
+customer_segment_counts.plot(kind='bar')
+plt.title('Customer Segments')
+plt.xlabel('Segment')
+plt.ylabel('Number of Customers')
+plt.xticks(rotation=45)
+plt.show()
