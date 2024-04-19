@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+# 'Product' column in your sales data
+# Group sales data by product and sum the revenue
+product_sales = sales_df.groupby('Product')['Revenue'].sum().sort_values(ascending=False)
+
+# Plotting top-selling products
+plt.figure(figsize=(10, 6))
+product_sales.head(10).plot(kind='bar')
+plt.title('Top Selling Products')
+plt.xlabel('Product')
+plt.ylabel('Revenue ($)')
+plt.xticks(rotation=45)
+plt.show()
+
+# 'Category' column in your product data
+# Group sales data by category and sum the revenue
+category_sales = sales_df.merge(product_df, on='Product').groupby('Category')['Revenue'].sum().sort_values(ascending=False)
+
+# Plotting sales by category
+plt.figure(figsize=(10, 6))
+category_sales.plot(kind='bar')
+plt.title('Sales by Category')
+plt.xlabel('Category')
+plt.ylabel('Revenue ($)')
+plt.xticks(rotation=45)
+plt.show()
