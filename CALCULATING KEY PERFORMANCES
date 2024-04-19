@@ -1,0 +1,64 @@
+import pandas as pd
+
+#  loaded your sales data into a pandas DataFrame
+# sales_df = pd.read_csv("sales_data.csv")
+
+# Calculate total revenue
+total_revenue = sales_df['Revenue'].sum()
+print("Total Revenue:", total_revenue)
+
+# Calculate average order value (AOV)
+average_order_value = sales_df['Revenue'].mean()
+print("Average Order Value (AOV):", average_order_value)
+
+# Calculate conversion rate
+# you have data on total visits or sessions
+# total_visits = 10000  # Example value
+# total_orders = len(sales_df)
+# conversion_rate = total_orders / total_visits
+# print("Conversion Rate:", conversion_rate)
+
+# Calculate conversion rate from sales data if visits data is not available
+conversion_rate = len(sales_df) / len(customer_df)
+print("Conversion Rate:", conversion_rate)
+
+# Calculate customer retention rate
+# you have data on repeat customers
+# repeat_customers = 500  # Example value
+# total_customers = len(customer_df)
+# retention_rate = repeat_customers / total_customers
+# print("Customer Retention Rate:", retention_rate)
+
+# Calculate customer retention rate from sales data if customer data is not available
+unique_customers = sales_df['Customer'].nunique()
+repeat_customers = len(sales_df[sales_df.duplicated(subset=['Customer'], keep=False)])
+retention_rate = repeat_customers / unique_customers
+print("Customer Retention Rate:", retention_rate)
+
+# Calculate customer acquisition cost (CAC)
+# Assuming you have data on marketing expenses and total new customers acquired
+# marketing_expenses = 10000  # Example value
+# new_customers_acquired = 1000  # Example value
+# CAC = marketing_expenses / new_customers_acquired
+# print("Customer Acquisition Cost (CAC):", CAC)
+
+# Calculate customer acquisition cost from sales data if new customers acquired data is not available
+unique_customers = sales_df['Customer'].nunique()
+marketing_expenses = 10000  # Example value
+CAC = marketing_expenses / unique_customers
+print("Customer Acquisition Cost (CAC):", CAC)
+
+# Calculate customer lifetime value (CLV)
+# Assuming you have data on average purchase value, purchase frequency, and customer lifespan
+# average_purchase_value = 50  # Example value
+# purchase_frequency = 2  # Example value
+# customer_lifespan = 5  # Example value
+# CLV = average_purchase_value * purchase_frequency * customer_lifespan
+# print("Customer Lifetime Value (CLV):", CLV)
+
+# Calculate customer lifetime value from sales data if specific data is not available
+average_purchase_value = sales_df['Revenue'].mean()
+purchase_frequency = len(sales_df) / unique_customers
+customer_lifespan = 5  # Example value
+CLV = average_purchase_value * purchase_frequency * customer_lifespan
+print("Customer Lifetime Value (CLV):", CLV)
